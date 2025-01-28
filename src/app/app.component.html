@@ -1,14 +1,17 @@
 <app-header />
 <main>
   <ul id="users">
-    <li>
-      <app-user
-        [id]="users[0].id"
-        [avatar]="users[0].avatar"
-        [name]="users[0].name"
-        (select)="onSelectUser($event)"
-      />
+    <li *ngFor="let user of users">
+      <app-user [user]="user" (select)="onSelectUser($event)" />
     </li>
   </ul>
-  <app-tasks [userName]="selectedUserName" />
+
+  <app-tasks
+    *ngIf="selectedUserName; else fallback"
+    [userName]="selectedUserName"
+    [userId]="selectedUserId"
+  />
+  <ng-template #fallback>
+    <p id="fallback">Please select a user to see their name</p>
+  </ng-template>
 </main>
