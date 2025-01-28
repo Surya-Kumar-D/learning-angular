@@ -2,18 +2,18 @@
   <header>
     <h2>{{ userName }}'s Tasks</h2>
     <menu>
-      <button>Add Task</button>
+      <button (click)="handleAddTask()">Add Task</button>
     </menu>
   </header>
-  <ul>
-    @for (task of selectedUserTask; track task.id) {
-    <li>
-      <app-task
-        [dueDate]="task.dueDate"
-        [summary]="task.summary"
-        [title]="task.title"
-      />
-    </li>
-    }
-  </ul>
+  @if (addTask) {
+    <app-new-task (cancel)="handleCancelAddTask()" (add)="onAddTask($event)" />
+  } @else {
+    <ul>
+      @for (task of selectedUserTask; track task.id) {
+        <li>
+          <app-task [task]="task" (complete)="onCompleteTask($event)" />
+        </li>
+      }
+    </ul>
+  }
 </section>
