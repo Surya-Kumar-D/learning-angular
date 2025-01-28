@@ -3,6 +3,7 @@ import { dummyTasks } from '../tasks';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { TaskComponent } from './task/task.component';
 import { type NewTaskData } from './task/task.model';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -14,6 +15,8 @@ export class TasksComponent {
   @Input({ required: true }) userName!: string;
   @Input({ required: true }) userId!: string;
   @Input() addTask!: boolean;
+
+  constructor(private taskService: TasksService) {}
 
   tasks = dummyTasks;
 
@@ -27,10 +30,6 @@ export class TasksComponent {
 
   get selectedUserTask() {
     return this.tasks.filter((task) => task.userId === this.userId);
-  }
-
-  onCompleteTask(id: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
   }
 
   onAddTask(taskData: NewTaskData) {

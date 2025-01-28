@@ -6,12 +6,12 @@
     </menu>
   </header>
   @if (addTask) {
-    <app-new-task (cancel)="handleCancelAddTask()" (add)="onAddTask($event)" />
+    <app-new-task (close)="handleCancelAddTask()" [userid]="userId" />
   } @else {
     <ul>
       @for (task of selectedUserTask; track task.id) {
         <li>
-          <app-task [task]="task" (complete)="onCompleteTask($event)" />
+          <app-task [task]="task" />
         </li>
       }
     </ul>
